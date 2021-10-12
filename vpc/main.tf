@@ -33,7 +33,7 @@ resource "aws_default_route_table" "default_route_table" {
   }
 
   tags = {
-    Name = "default-rtb"
+    Name = "default-rt"
   }
 }
 
@@ -67,7 +67,7 @@ resource "aws_route_table" "public" {
     gateway_id = aws_internet_gateway.this.id
   }
 
-  tags = { Name = "public-rt" }
+  tags = { Name = "public-rt-${count.index}" }
 }
 
 resource "aws_route_table" "private" {
