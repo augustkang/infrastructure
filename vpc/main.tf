@@ -59,8 +59,6 @@ resource "aws_subnet" "private" {
 }
 
 resource "aws_route_table" "public" {
-  count = length(var.private_subnets)
-
   vpc_id = aws_vpc.this.id
 
   route {
@@ -68,28 +66,27 @@ resource "aws_route_table" "public" {
     gateway_id = aws_internet_gateway.this.id
   }
 
-  tags = { Name = "public-rt-${count.index}" }
+  tags = { Name = "public-rt" }
 }
 
 resource "aws_route_table" "private" {
-  count = length(var.private_subnets)
-
   vpc_id = aws_vpc.this.id
-  tags = { Name = "private-rt-${count.index}" }
+
+  tags = { Name = "private-rt" }
 }
 
 resource "aws_route_table_association" "public_route_association" {
   count = length(var.public_subnets)
 
   subnet_id      = aws_subnet.public.*.id[count.index]
-  route_table_id = aws_route_table.public.*.id[count.index]
+  route_table_id = aws_route_table.public.id
 }
 
 resource "aws_route_table_association" "private_route_association" {
   count = length(var.private_subnets)
 
   subnet_id      = aws_subnet.private.*.id[count.index]
-  route_table_id = aws_route_table.private.*.id[count.index]
+  route_table_id = aws_route_table.private.id
 }
 
 resource "aws_default_network_acl" "nacl" {
