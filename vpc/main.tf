@@ -1,3 +1,6 @@
+#TODO
+# inject name variable(august) from outside.(rt, igw, ...) currently I typed statically in code.
+
 resource "aws_vpc" "this" {
   cidr_block           = var.cidr
   enable_dns_hostnames = true
@@ -22,6 +25,10 @@ resource "aws_vpc_dhcp_options_association" "this" {
 
 resource "aws_internet_gateway" "this" {
   vpc_id = aws_vpc.this.id
+
+  tags = {
+    Name = "august-internet-gateway"
+  }
 }
 
 resource "aws_default_route_table" "default_route_table" {
@@ -34,6 +41,28 @@ resource "aws_default_route_table" "default_route_table" {
 
   tags = {
     Name = "default-rt"
+  }
+}
+
+resource "aws_default_security_group" "default" {
+  vpc_id = aws_vpc.this.id
+
+  ingress {
+    protocol = -1
+    self = true
+    from_port = 0
+    to_port = 0
+  }
+
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "august-default-sg"
   }
 }
 
@@ -108,5 +137,9 @@ resource "aws_default_network_acl" "nacl" {
     cidr_block = "0.0.0.0/0"
     from_port  = 0
     to_port    = 0
+  }
+
+  tags = {
+    Name = "august-default-nacl"
   }
 }
