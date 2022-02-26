@@ -1,7 +1,6 @@
-variable "name" {
-  description = "Name"
+variable "project_name" {
+  description = "Project name"
   type        = string
-  default     = ""
 }
 
 variable "cidr" {
