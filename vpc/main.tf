@@ -42,7 +42,6 @@ resource "aws_default_route_table" "default_route_table" {
 
 resource "aws_default_security_group" "default" {
   vpc_id = aws_vpc.this.id
-  name   = "${var.project_name}-default-sg"
 
   ingress {
     protocol  = -1
