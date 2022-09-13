@@ -11,6 +11,6 @@ module "vpc" {
   project_name    = "august"
   cidr            = "10.0.0.0/16"
   azs             = ["${local.region}a", "${local.region}c"]
-  public_subnets  = ["10.0.1.0/24", "10.0.2.0/24"]
-  private_subnets = ["10.0.3.0/24", "10.0.4.0/24"]
+  public_subnets  = ["10.0.0.0/18", "10.0.64.0/18"]
+  private_subnets = ["10.0.128.0/18", "10.0.192.0/18"]
 }
