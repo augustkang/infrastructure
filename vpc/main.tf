@@ -94,6 +94,8 @@ resource "aws_route_table" "public" {
   tags = { Name = "${var.project_name}-public-rt" }
 }
 
+# TODO: Define NAT Gateway and change private route table to use it
+# Currently I didn't define NAT gateway because it costs additional money
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.this.id
 
