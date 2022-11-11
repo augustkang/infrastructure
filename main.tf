@@ -7,7 +7,7 @@ locals {
 }
 
 module "vpc" {
-  source          = "./vpc"
+  source          = "./modules/vpc"
   project_name    = "august"
   cidr            = "10.0.0.0/16"
   azs             = ["${local.region}a", "${local.region}c"]
