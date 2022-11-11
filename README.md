@@ -1,3 +1,3 @@
 # infrastructure
 
-Personal infrastructure for testing purpose
+Personal terraform playground
